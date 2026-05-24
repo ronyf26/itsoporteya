@@ -5,123 +5,814 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ITSoporteYa - Soporte Técnico en Línea 24/7</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background: #e3edf7; color: #2c3e50; }
-    header {
-      background: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1350&q=80') center center no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-      text-align: center;
-      padding: 4rem 1rem;
-      color: white;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #0066ff;
+      --primary-dark: #0052cc;
+      --secondary: #ff6b6b;
+      --success: #00d084;
+      --dark: #1a1a2e;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    .navbar {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      padding: 1.2rem 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-right: 3rem;
+    }
+
+    .navbar-nav .nav-link {
+      font-weight: 600;
+      color: white !important;
+      margin-left: 1rem;
+      transition: all 0.3s ease;
       position: relative;
     }
-    header h1 {
+
+    .navbar-nav .nav-link:hover {
+      color: var(--primary) !important;
+    }
+
+    .navbar-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      color: white;
+      padding: 120px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: rgba(0, 102, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(20px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .btn-hero {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 102, 255, 0.4);
+      color: white;
+    }
+
+    /* Services Section */
+    .services {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-title h2 {
       font-size: 2.5rem;
-      font-weight: 800;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      color: var(--gray);
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+      border-color: var(--primary);
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .service-card p {
+      color: var(--gray);
+      line-height: 1.8;
+    }
+
+    /* Pricing Section */
+    .pricing {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 100%);
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
+    }
+
+    .pricing-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 50px rgba(0, 102, 255, 0.2);
+      border-color: var(--primary);
+    }
+
+    .pricing-card.featured {
+      transform: scale(1.05);
+      border-color: var(--primary);
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      color: white;
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.1);
+    }
+
+    .badge-popular {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 1.5rem 0;
+      color: var(--primary);
+    }
+
+    .pricing-card.featured .price {
+      color: var(--primary);
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin: 2rem 0;
+    }
+
+    .pricing-features li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--dark);
+    }
+
+    .pricing-card.featured .pricing-features li {
+      color: rgba(255, 255, 255, 0.9);
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .pricing-features li::before {
+      content: '✓ ';
+      color: var(--success);
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin-top: 3rem;
+    }
+
+    .form-control {
+      padding: 12px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.2rem rgba(0, 102, 255, 0.25);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border: none;
+      padding: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0, 102, 255, 0.4);
+    }
+
+    /* About Section */
+    .about {
+      padding: 80px 0;
+      background: linear-gradient(135deg, #f5f7ff 0%, #e8ecff 100%);
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 1.1rem;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .about-features {
+      list-style: none;
+    }
+
+    .about-features li {
+      padding: 1rem 0;
+      font-size: 1.1rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+    }
+
+    .about-features li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+      color: white;
+      padding: 3rem 0 1rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    .footer-section h4 {
+      font-weight: 600;
       margin-bottom: 1rem;
     }
-    header h1 span.it { color: #e74c3c; }
-    header h1 span.soporte { color: #007bff; }
-    header h1 span.mundo {
-      display: inline-block;
-      color: #007bff;
-      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Globe_icon.svg/1024px-Globe_icon.svg.png') no-repeat center;
-      background-size: contain;
-      width: 30px;
-      height: 30px;
-      text-indent: -9999px;
-      vertical-align: middle;
+
+    .footer-section ul {
+      list-style: none;
     }
-    header h1 span.ya { color: #e74c3c; }
-    nav { background-color: #0b2545; padding: 0.75rem; text-align: center; }
-    nav a { color: white; margin: 0 1rem; text-decoration: none; font-weight: 600; font-size: 1rem; transition: color 0.3s; }
-    nav a:hover { color: #00c3ff; }
-    section { padding: 3rem 1rem; max-width: 1000px; margin: auto; background: white; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.07); margin-top: 2rem; }
-    h2 { color: #0056b3; margin-bottom: 1rem; font-weight: 600; }
-    ul { list-style: none; padding-left: 1rem; }
-    ul li::before { content: "✔️ "; margin-right: 0.5rem; color: #28a745; }
-    footer { background-color: #001f3f; color: white; text-align: center; padding: 2rem; font-size: 0.9rem; margin-top: 2rem; }
-    .contact-form { margin-top: 2rem; }
-    .contact-form input, .contact-form textarea, .contact-form button {
-      width: 100%; padding: 0.75rem; margin: 0.5rem 0; border: 1px solid #ccc; border-radius: 8px;
+
+    .footer-section ul li {
+      margin-bottom: 0.8rem;
     }
-    .contact-form button { background-color: #007bff; color: white; border: none; cursor: pointer; transition: background-color 0.3s; }
-    .contact-form button:hover { background-color: #0056b3; }
-    .lang-switch { text-align: right; padding: 0.5rem 1rem; background: #ecf0f1; font-size: 0.9rem; }
-    .lang-switch a { margin-left: 1rem; color: #0056b3; text-decoration: none; }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 2rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Lang Switch */
+    .lang-switch {
+      position: fixed;
+      top: 15px;
+      right: 20px;
+      background: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      font-size: 0.9rem;
+      z-index: 999;
+    }
+
+    .lang-switch a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      margin-left: 1rem;
+    }
+
+    .lang-switch a:hover {
+      color: var(--secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        text-align: center;
+      }
+
+      .lang-switch {
+        position: static;
+        margin-bottom: 1rem;
+      }
+
+      .hero::before {
+        width: 300px;
+        height: 300px;
+        right: -50%;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="lang-switch">
-    Idioma: <a href="index.html">Español</a> | <a href="index-en.html">English</a>
+    <span>Idioma:</span> <a href="index.html">ES</a> | <a href="index-en.html">EN</a>
   </div>
-  <header>
-    <h1><span class="it">IT</span><span class="soporte">Soporte</span><span class="mundo">O</span><span class="ya">Ya</span></h1>
-    <p class="tagline">Soporte Técnico en línea 24/7<br>Technical Support As a Service<br><em>Fix your tech. Fast. Friendly.</em></p>
-  </header>
 
-  <nav>
-    <a href="#servicios">Servicios</a>
-    <a href="#planes">Planes</a>
-    <a href="#contacto">Contacto</a>
-    <a href="#nosotros">Nosotros</a>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-lg">
+      <a class="navbar-brand" href="#home">
+        <i class="fas fa-headset"></i> ITSoporteYa
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="#planes">Planes</a></li>
+          <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
 
-  <section id="servicios">
-    <h2>Servicios</h2>
-    <ul>
-      <li>Soporte para usuarios domésticos y empresas</li>
-      <li>Solución de problemas de PC y software</li>
-      <li>Optimización de rendimiento y configuración de juegos</li>
-      <li>Instalación y soporte de herramientas de seguridad</li>
-      <li>Diagnóstico remoto y asistencia vía chat o videollamada</li>
-    </ul>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container-lg">
+      <div class="hero-content">
+        <h1>Soporte Técnico <span class="hero-highlight">24/7</span> que Confías</h1>
+        <p>Expertos disponibles ahora para resolver tus problemas tecnológicos</p>
+        <button class="btn-hero" data-bs-toggle="modal" data-bs-target="#contactModal">
+          <i class="fas fa-phone-alt"></i> Contacta Ahora
+        </button>
+      </div>
+    </div>
   </section>
 
-  <section id="planes">
-    <h2>Planes y Tarifas</h2>
-    <ul>
-      <li><strong>Diagnóstico Básico:</strong> $5 USD - Análisis inicial de problemas</li>
-      <li><strong>Soporte Estándar:</strong> $15 USD - Sesiones de hasta 45 minutos</li>
-      <li><strong>Plan Mensual:</strong> $30 USD - Hasta 3 sesiones al mes</li>
-    </ul>
+  <!-- Services Section -->
+  <section class="services" id="servicios">
+    <div class="container-lg">
+      <div class="section-title">
+        <h2>Nuestros Servicios</h2>
+        <p class="section-subtitle">Soluciones completas para todos tus problemas tecnológicos</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-desktop"></i>
+            </div>
+            <h3>Soporte PC</h3>
+            <p>Diagnóstico y reparación completa de computadoras de escritorio y portátiles</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Seguridad</h3>
+            <p>Protección contra malware, virus y configuración de antivirus profesionales</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h3>Optimización</h3>
+            <p>Mejora el rendimiento de tu equipo eliminando archivos basura y procesos innecesarios</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-gamepad"></i>
+            </div>
+            <h3>Configuración Gamer</h3>
+            <p>Setup óptimo para juegos: drivers, graphics y configuración avanzada</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-video"></i>
+            </div>
+            <h3>Soporte Remoto</h3>
+            <p>Asistencia en vivo mediante chat, voz o videollamada con expertos disponibles</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-tools"></i>
+            </div>
+            <h3>Instalación</h3>
+            <p>Instalación profesional de software, actualizaciones y herramientas especializadas</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="contacto">
-    <h2>Contacto</h2>
-    <p>Escríbenos a <a href="mailto:soporte@itsoporteya.com">soporte@itsoporteya.com</a> o contáctanos por WhatsApp.</p>
-    <form class="contact-form">
-      <input type="text" placeholder="Nombre / Name" required>
-      <input type="email" placeholder="Correo electrónico / Email" required>
-      <textarea placeholder="¿En qué podemos ayudarte? / How can we help you?" rows="5" required></textarea>
-      <button type="submit">Enviar Mensaje / Send Message</button>
-    </form>
+  <!-- Pricing Section -->
+  <section class="pricing" id="planes">
+    <div class="container-lg">
+      <div class="section-title">
+        <h2>Planes y Tarifas</h2>
+        <p class="section-subtitle">Elige el plan que mejor se adapte a tus necesidades</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="pricing-card">
+            <h3>Diagnóstico</h3>
+            <div class="price">$5<span style="font-size: 1rem; color: var(--gray);">/sesión</span></div>
+            <p style="color: var(--gray); margin-bottom: 2rem;">Análisis inicial de problemas</p>
+            <ul class="pricing-features">
+              <li>Evaluación completa del equipo</li>
+              <li>Identificación de problemas</li>
+              <li>Reporte detallado</li>
+              <li>Duración: ~30 minutos</li>
+            </ul>
+            <button class="btn-submit" data-bs-toggle="modal" data-bs-target="#contactModal">
+              Seleccionar
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="pricing-card featured">
+            <span class="badge-popular">MÁS POPULAR</span>
+            <h3>Estándar</h3>
+            <div class="price">$15<span style="font-size: 1rem;">/sesión</span></div>
+            <p style="margin-bottom: 2rem;">Sesiones completas de soporte</p>
+            <ul class="pricing-features">
+              <li>Soporte técnico completo</li>
+              <li>Reparación de problemas</li>
+              <li>Asesoramiento incluido</li>
+              <li>Duración: hasta 45 minutos</li>
+              <li>Seguimiento por email</li>
+            </ul>
+            <button class="btn-submit" data-bs-toggle="modal" data-bs-target="#contactModal">
+              Seleccionar
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="pricing-card">
+            <h3>Plan Mensual</h3>
+            <div class="price">$30<span style="font-size: 1rem; color: var(--gray);">/mes</span></div>
+            <p style="color: var(--gray); margin-bottom: 2rem;">Soporte ilimitado</p>
+            <ul class="pricing-features">
+              <li>3 sesiones al mes</li>
+              <li>Prioridad en atención</li>
+              <li>Descuento en servicios extras</li>
+              <li>Soporte por chat 24/7</li>
+              <li>Mantenimiento preventivo</li>
+            </ul>
+            <button class="btn-submit" data-bs-toggle="modal" data-bs-target="#contactModal">
+              Seleccionar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="nosotros">
-    <h2>Sobre Nosotros / About Us</h2>
-    <p>Con más de 20 años de experiencia en tecnología, ofrecemos soluciones rápidas y personalizadas para usuarios domésticos y PYMEs. Nos apasiona ayudarte a resolver tus problemas técnicos de forma eficiente y confiable.</p>
-    <p>With over 20 years of experience in technology, we offer fast and personalized solutions for home users and small businesses. We are passionate about helping you solve your tech issues efficiently and reliably.</p>
+  <!-- About Section -->
+  <section class="about" id="nosotros">
+    <div class="container-lg">
+      <div class="section-title">
+        <h2>Sobre Nosotros</h2>
+        <p class="section-subtitle">Tu aliado de confianza en soporte técnico</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text">
+          <p>Con más de 20 años de experiencia en tecnología, ITSoporteYa se ha consolidado como líder en soporte técnico especializado.</p>
+          <p>Nuestro equipo de expertos certificados está disponible 24/7 para ayudarte a resolver cualquier problema tecnológico, desde configuraciones básicas hasta optimizaciones avanzadas.</p>
+          <p>Nos apasiona proporcionar soluciones rápidas, efectivas y personalizadas para usuarios domésticos y pequeñas empresas.</p>
+        </div>
+        <ul class="about-features">
+          <li><strong>20+ años</strong> de experiencia en tecnología</li>
+          <li><strong>Disponibilidad 24/7</strong> todos los días del año</li>
+          <li><strong>Técnicos certificados</strong> y especializados</li>
+          <li><strong>Respuesta rápida</strong> en menos de 5 minutos</li>
+          <li><strong>Satisfacción garantizada</strong> o devolución del dinero</li>
+          <li><strong>Soporte multiidioma</strong> español e inglés</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
+  <!-- Contact Section -->
+  <section class="contact" id="contacto">
+    <div class="container-lg">
+      <div class="section-title">
+        <h2>Ponte en Contacto</h2>
+        <p class="section-subtitle">¿Tienes preguntas? Estamos aquí para ayudarte</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="contact-info" style="padding: 2rem; background: var(--light); border-radius: 15px;">
+            <h3 style="margin-bottom: 2rem; color: var(--dark);">Formas de Contacto</h3>
+            <div style="margin-bottom: 2rem;">
+              <h5 style="color: var(--primary); margin-bottom: 0.5rem;">
+                <i class="fas fa-envelope"></i> Email
+              </h5>
+              <p>soporte@itsoporteya.com</p>
+            </div>
+            <div style="margin-bottom: 2rem;">
+              <h5 style="color: var(--primary); margin-bottom: 0.5rem;">
+                <i class="fas fa-whatsapp"></i> WhatsApp
+              </h5>
+              <p>Disponible 24/7 para atenderte</p>
+            </div>
+            <div style="margin-bottom: 2rem;">
+              <h5 style="color: var(--primary); margin-bottom: 0.5rem;">
+                <i class="fas fa-headset"></i> Soporte en Vivo
+              </h5>
+              <p>Chat y videollamada directa con expertos</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <form class="contact-form">
+            <input type="text" class="form-control" placeholder="Tu Nombre" required>
+            <input type="email" class="form-control" placeholder="Tu Correo Electrónico" required>
+            <textarea class="form-control" placeholder="¿En qué podemos ayudarte?" rows="5" required></textarea>
+            <button type="submit" class="btn-submit">
+              <i class="fas fa-paper-plane"></i> Enviar Mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal de Contacto -->
+  <div class="modal fade" id="contactModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" style="border-bottom: 2px solid var(--primary);">
+          <h5 class="modal-title">Contacta con Nosotros</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <input type="text" class="form-control" placeholder="Tu Nombre" required style="margin-bottom: 1rem;">
+            <input type="email" class="form-control" placeholder="Tu Email" required style="margin-bottom: 1rem;">
+            <textarea class="form-control" placeholder="Describe tu problema" rows="4" required style="margin-bottom: 1rem;"></textarea>
+            <button type="submit" class="btn-submit">Enviar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 ITSoporteYa. Todos los derechos reservados.</p>
-    <p><em>Este sitio es informativo y no constituye una relación contractual. El uso del servicio está sujeto a términos y condiciones. ITSoporteYa no se hace responsable de daños derivados del uso incorrecto de las recomendaciones técnicas.</em></p>
+    <div class="container-lg">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4><i class="fas fa-headset"></i> ITSoporteYa</h4>
+          <p>Tu partner confiable en soporte técnico profesional 24/7</p>
+        </div>
+        <div class="footer-section">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#servicios">Soporte PC</a></li>
+            <li><a href="#servicios">Seguridad</a></li>
+            <li><a href="#servicios">Optimización</a></li>
+            <li><a href="#servicios">Gaming Setup</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Compañía</h4>
+          <ul>
+            <li><a href="#nosotros">Sobre Nosotros</a></li>
+            <li><a href="#planes">Planes</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#">Política de Privacidad</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 ITSoporteYa. Todos los derechos reservados. | <em>Fix your tech. Fast. Friendly.</em></p>
+      </div>
+    </div>
   </footer>
 
-  <!-- Chat Widget Example (Tawk.to) -->
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Form submission
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('¡Gracias por tu mensaje! Nos contactaremos pronto.');
+        this.reset();
+      });
+    });
+  </script>
+
+  <!-- Chat Widget (Tawk.to) -->
   <script type="text/javascript">
-  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-  (function(){
-  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-  s1.async=true;
-  s1.src='https://embed.tawk.to/5e96d0ec35bcbb0c9ab0b9f5/default';
-  s1.charset='UTF-8';
-  s1.setAttribute('crossorigin','*');
-  s0.parentNode.insertBefore(s1,s0);
-  })();
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/5e96d0ec35bcbb0c9ab0b9f5/default';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
   </script>
 </body>
 </html>
