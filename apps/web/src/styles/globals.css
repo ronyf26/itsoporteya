@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 40% 7%;
+    --foreground: 0 0% 100%;
+    --card: 220 40% 11%;
+    --card-foreground: 0 0% 100%;
+    --primary: 187 100% 50%;
+    --primary-foreground: 220 40% 7%;
+    --secondary: 263 84% 58%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 40% 15%;
+    --muted-foreground: 210 15% 64%;
+    --accent: 220 40% 15%;
+    --accent-foreground: 0 0% 100%;
+    --border: 220 40% 15%;
+    --input: 220 40% 15%;
+    --ring: 187 100% 50%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+  }
+
+  h1 {
+    @apply text-[48px] leading-tight;
+  }
+
+  h2 {
+    @apply text-[36px] leading-tight;
+  }
+
+  h3 {
+    @apply text-[28px] leading-snug;
+  }
+
+  p {
+    @apply text-body leading-relaxed;
+  }
+
+  small {
+    @apply text-small;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-background font-semibold px-6 py-3 rounded-lg 
+           hover:opacity-90 transition-all duration-200 ease-in-out;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-white font-semibold px-6 py-3 rounded-lg 
+           hover:opacity-90 transition-all duration-200 ease-in-out;
+  }
+
+  .card {
+    @apply bg-card border border-border rounded-xl p-6 
+           hover:shadow-lg hover:shadow-primary/10 transition-all duration-300;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
+}

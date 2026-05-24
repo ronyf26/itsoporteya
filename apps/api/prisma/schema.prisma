@@ -1,0 +1,215 @@
+// Schema de Prisma para ITSoporteYa
+// Define las entidades principales del sistema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Usuario del sistema
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String
+  password      String
+  role          Role      @default(USER)
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime? // Soft delete
+
+  // Relaciones
+  sessions      Session[]
+  tickets       Ticket[]
+  payments      Payment[]
+
+  @@index([email])
+  @@index([role])
+}
+
+// Roles del sistema
+enum Role {
+  ADMIN
+  TECHNICIAN
+  USER
+}
+
+// Sesiones de usuario (JWT refresh tokens)
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  token        String   @unique
+  userAgent    String?
+  ip           String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  revokedAt    DateTime?
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+}
+
+// Tickets de soporte
+model Ticket {
+  id          String        @id @default(uuid())
+  title       String
+  description String
+  status      TicketStatus  @default(OPEN)
+  priority    Priority      @default(MEDIUM)
+  category    Category
+  userId      String
+  technicianId String?
+  resolution  String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+
+  // Relaciones
+  user        User          @relation(fields: [userId], references: [id])
+  technician  User?         @relation(fields: [technicianId], references: [id])
+  messages    Message[]
+  attachments Attachment[]
+
+  @@index([userId])
+  @@index([technicianId])
+  @@index([status])
+  @@index([priority])
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  WAITING_CUSTOMER
+  RESOLVED
+  CLOSED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum Category {
+  TECHNICAL
+  BILLING
+  ACCOUNT
+  OTHER
+}
+
+// Mensajes dentro de tickets
+model Message {
+  id        String   @id @default(uuid())
+  content   String
+  senderId  String
+  ticketId  String
+  isInternal Boolean @default(false)
+  createdAt DateTime @default(now())
+  deletedAt DateTime?
+
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId])
+  @@index([senderId])
+}
+
+// Archivos adjuntos
+model Attachment {
+  id        String   @id @default(uuid())
+  filename  String
+  url       String
+  mimetype  String
+  size      Int
+  ticketId  String
+  createdAt DateTime @default(now())
+
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+
+  @@index([ticketId])
+}
+
+// Pagos
+model Payment {
+  id            String      @id @default(uuid())
+  userId        String
+  amount        Decimal     @db.Decimal(10, 2)
+  currency      String      @default("USD")
+  status        PaymentStatus @default(PENDING)
+  paymentMethod String
+  transactionId String?
+  description   String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user          User        @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+// Planes de suscripción
+model Subscription {
+  id         String   @id @default(uuid())
+  userId     String   @unique
+  planId     String
+  status     SubscriptionStatus @default(ACTIVE)
+  startDate  DateTime @default(now())
+  endDate    DateTime
+  cancelledAt DateTime?
+
+  @@index([userId])
+  @@index([status])
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+}
+
+// Planes disponibles
+model Plan {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  price       Decimal  @db.Decimal(10, 2)
+  currency    String   @default("USD")
+  interval    String   // monthly, yearly
+  features    String[] // Array de características
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isActive])
+}
+
+// Auditoría opcional
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String
+  entity    String
+  entityId  String
+  userId    String?
+  metadata  Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([entity])
+  @@index([userId])
+  @@index([createdAt])
+}
